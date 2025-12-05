@@ -17,7 +17,7 @@ export default function AlliedHealthHRDashboard() {
     {
       title: 'Employee Directory',
       icon: <People sx={{ fontSize: 40 }} />,
-      color: '#1565C0',
+      color: '#00BFA5',
       value: '47',
       subtitle: 'Total Employees',
       path: '/allied-health/hr/employees',
@@ -25,7 +25,7 @@ export default function AlliedHealthHRDashboard() {
     {
       title: 'Payroll Management',
       icon: <AttachMoney sx={{ fontSize: 40 }} />,
-      color: '#1976D2',
+      color: '#00897B',
       value: '₹12.5L',
       subtitle: 'This Month',
       path: '/allied-health/hr/payroll',
@@ -33,7 +33,7 @@ export default function AlliedHealthHRDashboard() {
     {
       title: 'Performance',
       icon: <TrendingUp sx={{ fontSize: 40 }} />,
-      color: '#1E88E5',
+      color: '#26A69A',
       value: '94%',
       subtitle: 'Avg Rating',
       path: '/allied-health/hr/performance',
@@ -41,7 +41,7 @@ export default function AlliedHealthHRDashboard() {
     {
       title: 'Leave Management',
       icon: <Assignment sx={{ fontSize: 40 }} />,
-      color: '#2196F3',
+      color: '#4DB6AC',
       value: '8',
       subtitle: 'Pending Requests',
       path: '/allied-health/hr/leaves',
@@ -49,12 +49,21 @@ export default function AlliedHealthHRDashboard() {
   ];
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           HR Dashboard
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Allied Health Sciences HR Management
         </Typography>
       </Paper>
@@ -62,16 +71,28 @@ export default function AlliedHealthHRDashboard() {
       <Grid container spacing={3}>
         {quickActions.map((action) => (
           <Grid item xs={12} sm={6} md={3} key={action.title}>
-            <Card>
+            <Card 
+              elevation={0}
+              sx={{
+                bgcolor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid rgba(0, 0, 0, 0.06)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+                },
+              }}
+            >
               <CardActionArea onClick={() => navigate(action.path)}>
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Box sx={{ color: action.color, mb: 1 }}>
                     {action.icon}
                   </Box>
-                  <Typography variant="h5" sx={{ fontWeight: 600, color: action.color, mb: 0.5 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: action.color, mb: 0.5 }}>
                     {action.value}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography variant="body2" sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                     {action.subtitle}
                   </Typography>
                   <Typography variant="caption" sx={{ fontWeight: 600 }}>

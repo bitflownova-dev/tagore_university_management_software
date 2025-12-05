@@ -205,7 +205,7 @@ export default function UniversityStudentManagement() {
   };
 
   return (
-    <Box>
+    <Box sx={{ p: 3 }}>
       <Paper sx={{ p: 3, mb: 3 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>

@@ -50,7 +50,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export default function Analytics() {
   return (
-    <Box>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         Analytics & Insights
       </Typography>

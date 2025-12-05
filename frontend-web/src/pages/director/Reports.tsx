@@ -31,7 +31,7 @@ export default function Reports() {
   ];
 
   return (
-    <Box>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         Reports & Analytics
       </Typography>

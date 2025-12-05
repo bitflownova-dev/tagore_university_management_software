@@ -15,7 +15,7 @@ import {
   Chip,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { People, AttachMoney, TrendingUp, Assignment, Groups, School } from '@mui/icons-material';
+import { People, AttachMoney, TrendingUp, Assignment } from '@mui/icons-material';
 
 export default function UniversityHRDashboard() {
   const navigate = useNavigate();

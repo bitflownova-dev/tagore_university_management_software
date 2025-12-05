@@ -13,8 +13,9 @@ import {
   TableRow,
   Chip,
   Button,
+  alpha,
 } from '@mui/material';
-import { Receipt, GetApp } from '@mui/icons-material';
+import { GetApp } from '@mui/icons-material';
 
 const paymentHistory = [
   { date: 'Aug 5, 2025', semester: 'Semester 3', amount: 42000, method: 'Online', receipt: 'AHS2025001', status: 'Paid' },
@@ -31,60 +32,117 @@ export default function AlliedHealthFeePayments() {
   const pendingDues = 84000;
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Fee Payments
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           BSc MLT program fee management & payment history
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Total Fees
               </Typography>
-              <Typography variant="h5" sx={{ color: '#1565C0', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#00BFA5', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 ₹{totalFees.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Amount Paid
               </Typography>
-              <Typography variant="h5" sx={{ color: '#2E7D32', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#26A69A', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 ₹{amountPaid.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Pending Dues
               </Typography>
-              <Typography variant="h5" sx={{ color: '#D32F2F', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#EF5350', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 ₹{pendingDues.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Next Payment
               </Typography>
-              <Typography variant="body2" sx={{ color: '#F57C00', fontWeight: 600, mt: 1 }}>
+              <Typography variant="body2" sx={{ color: '#FFA726', fontWeight: 600, mt: 1 }}>
                 Jan 15, 2026
               </Typography>
             </CardContent>
@@ -92,8 +150,17 @@ export default function AlliedHealthFeePayments() {
         </Grid>
       </Grid>
 
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+          bgcolor: '#FFFFFF',
+        }}
+      >
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
           Pending Payments
         </Typography>
         <TableContainer>
@@ -117,7 +184,16 @@ export default function AlliedHealthFeePayments() {
                     <Chip label={payment.status} size="small" color="warning" />
                   </TableCell>
                   <TableCell>
-                    <Button variant="contained" size="small" sx={{ bgcolor: '#1565C0' }}>
+                    <Button 
+                      variant="contained" 
+                      size="small" 
+                      sx={{ 
+                        bgcolor: '#00BFA5',
+                        '&:hover': {
+                          bgcolor: '#00897B',
+                        },
+                      }}
+                    >
                       Pay Now
                     </Button>
                   </TableCell>
@@ -128,8 +204,16 @@ export default function AlliedHealthFeePayments() {
         </TableContainer>
       </Paper>
 
-      <Paper sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+          bgcolor: '#FFFFFF',
+        }}
+      >
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
           Payment History
         </Typography>
         <TableContainer>
@@ -147,14 +231,30 @@ export default function AlliedHealthFeePayments() {
             </TableHead>
             <TableBody>
               {paymentHistory.map((payment, index) => (
-                <TableRow key={index} hover>
+                <TableRow 
+                  key={index} 
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: alpha('#00BFA5', 0.04),
+                    },
+                  }}
+                >
                   <TableCell>{payment.date}</TableCell>
                   <TableCell>{payment.semester}</TableCell>
                   <TableCell>₹{payment.amount.toLocaleString()}</TableCell>
                   <TableCell>{payment.method}</TableCell>
                   <TableCell>{payment.receipt}</TableCell>
                   <TableCell>
-                    <Chip label={payment.status} size="small" color="success" />
+                    <Chip 
+                      label={payment.status} 
+                      size="small" 
+                      sx={{
+                        bgcolor: alpha('#26A69A', 0.1),
+                        color: '#26A69A',
+                        fontWeight: 600,
+                      }}
+                    />
                   </TableCell>
                   <TableCell>
                     <Button size="small" startIcon={<GetApp />}>

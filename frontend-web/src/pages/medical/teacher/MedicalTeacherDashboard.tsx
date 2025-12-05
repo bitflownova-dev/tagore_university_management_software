@@ -24,12 +24,21 @@ import {
   Schedule,
   Pending,
   Assessment,
+  VideoLibrary,
 } from '@mui/icons-material';
 
 export default function MedicalTeacherDashboard() {
   const navigate = useNavigate();
 
   const stats = [
+    {
+      title: 'LMS Portal',
+      value: '24',
+      subtitle: 'Videos & Assessments',
+      icon: <VideoLibrary sx={{ fontSize: 40 }} />,
+      color: '#DC2626',
+      path: '/medical/teacher/lms',
+    },
     {
       title: 'My Students',
       value: '45',
@@ -53,14 +62,6 @@ export default function MedicalTeacherDashboard() {
       icon: <Assessment sx={{ fontSize: 40 }} />,
       color: '#2E7D32',
       path: '/medical/teacher/marks',
-    },
-    {
-      title: "Today's Classes",
-      value: '3',
-      subtitle: 'Scheduled lectures',
-      icon: <Schedule sx={{ fontSize: 40 }} />,
-      color: '#9C27B0',
-      path: '/medical/teacher/classes',
     },
   ];
 

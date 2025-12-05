@@ -18,6 +18,7 @@ import {
   LinearProgress,
   Tabs,
   Tab,
+  alpha,
 } from '@mui/material';
 import {
   Biotech,
@@ -76,27 +77,60 @@ export default function AlliedHealthTeacherDashboard() {
   const [tabValue, setTabValue] = useState(0);
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #FF9800 0%, #F57C00 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Allied Health Faculty Dashboard
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Welcome, Dr. Suresh Reddy - Medical Laboratory Technology
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#FFF3E0', height: '100%' }}>
-            <CardContent>
+          <Card 
+            elevation={0}
+            sx={{ 
+              bgcolor: '#FFFFFF',
+              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Biotech sx={{ fontSize: 40, color: '#FF9800', mr: 2 }} />
+                <Box sx={{ 
+                  width: 56, 
+                  height: 56, 
+                  borderRadius: 2, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  bgcolor: alpha('#00BFA5', 0.1),
+                  mr: 2,
+                }}>
+                  <Biotech sx={{ fontSize: 32, color: '#00BFA5' }} />
+                </Box>
                 <Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#FF9800' }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: '#00BFA5' }}>
                     4
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#64748B' }}>
                     Sessions Today
                   </Typography>
                 </Box>
@@ -106,15 +140,39 @@ export default function AlliedHealthTeacherDashboard() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#FFEBEE', height: '100%' }}>
-            <CardContent>
+          <Card 
+            elevation={0}
+            sx={{ 
+              bgcolor: '#FFFFFF',
+              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 137, 123, 0.15)',
+              },
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Assignment sx={{ fontSize: 40, color: '#D32F2F', mr: 2 }} />
+                <Box sx={{ 
+                  width: 56, 
+                  height: 56, 
+                  borderRadius: 2, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  bgcolor: alpha('#00897B', 0.1),
+                  mr: 2,
+                }}>
+                  <Assignment sx={{ fontSize: 32, color: '#00897B' }} />
+                </Box>
                 <Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#D32F2F' }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: '#00897B' }}>
                     4
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#64748B' }}>
                     Pending Evaluations
                   </Typography>
                 </Box>
@@ -124,15 +182,39 @@ export default function AlliedHealthTeacherDashboard() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#E1F5FE', height: '100%' }}>
-            <CardContent>
+          <Card 
+            elevation={0}
+            sx={{ 
+              bgcolor: '#FFFFFF',
+              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 121, 107, 0.15)',
+              },
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <People sx={{ fontSize: 40, color: '#0288D1', mr: 2 }} />
+                <Box sx={{ 
+                  width: 56, 
+                  height: 56, 
+                  borderRadius: 2, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  bgcolor: alpha('#00796B', 0.1),
+                  mr: 2,
+                }}>
+                  <People sx={{ fontSize: 32, color: '#00796B' }} />
+                </Box>
                 <Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#0288D1' }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: '#00796B' }}>
                     72
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#64748B' }}>
                     Students Supervising
                   </Typography>
                 </Box>
@@ -142,15 +224,39 @@ export default function AlliedHealthTeacherDashboard() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ bgcolor: '#E8F5E9', height: '100%' }}>
-            <CardContent>
+          <Card 
+            elevation={0}
+            sx={{ 
+              bgcolor: '#FFFFFF',
+              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(38, 166, 154, 0.15)',
+              },
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <MedicalServices sx={{ fontSize: 40, color: '#388E3C', mr: 2 }} />
+                <Box sx={{ 
+                  width: 56, 
+                  height: 56, 
+                  borderRadius: 2, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  bgcolor: alpha('#26A69A', 0.1),
+                  mr: 2,
+                }}>
+                  <MedicalServices sx={{ fontSize: 32, color: '#26A69A' }} />
+                </Box>
                 <Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#388E3C' }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: '#26A69A' }}>
                     123
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#64748B' }}>
                     Certifications Done
                   </Typography>
                 </Box>
@@ -160,8 +266,33 @@ export default function AlliedHealthTeacherDashboard() {
         </Grid>
       </Grid>
 
-      <Paper sx={{ mb: 3 }}>
-        <Tabs value={tabValue} onChange={(e, newValue) => setTabValue(newValue)} sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          mb: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+        }}
+      >
+        <Tabs 
+          value={tabValue} 
+          onChange={(e, newValue) => setTabValue(newValue)} 
+          sx={{ 
+            borderBottom: 1, 
+            borderColor: 'divider',
+            px: 2,
+            '& .MuiTab-root': {
+              fontWeight: 600,
+              color: '#64748B',
+            },
+            '& .Mui-selected': {
+              color: '#00BFA5',
+            },
+            '& .MuiTabs-indicator': {
+              bgcolor: '#00BFA5',
+            },
+          }}
+        >
           <Tab label="Today's Schedule" />
           <Tab label="Pending Evaluations" />
           <Tab label="Certification Progress" />
@@ -169,33 +300,62 @@ export default function AlliedHealthTeacherDashboard() {
         </Tabs>
 
         <TabPanel value={tabValue} index={0}>
-          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
             Today's Practical & Teaching Schedule - December 4, 2024
           </Typography>
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Time</TableCell>
-                  <TableCell>Activity</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Program/Year</TableCell>
-                  <TableCell>Students</TableCell>
-                  <TableCell>Actions</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Time</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Activity</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Location</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Program/Year</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Students</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {todaysSchedule.map((session, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell sx={{ fontWeight: 600 }}>{session.time}</TableCell>
-                    <TableCell>{session.activity}</TableCell>
-                    <TableCell>{session.location}</TableCell>
+                  <TableRow 
+                    key={index} 
+                    sx={{ 
+                      transition: 'all 0.2s ease',
+                      '&:hover': { 
+                        bgcolor: alpha('#00BFA5', 0.04),
+                      } 
+                    }}
+                  >
+                    <TableCell sx={{ fontWeight: 600, color: '#1A202C' }}>{session.time}</TableCell>
+                    <TableCell sx={{ color: '#64748B' }}>{session.activity}</TableCell>
+                    <TableCell sx={{ color: '#64748B' }}>{session.location}</TableCell>
                     <TableCell>
-                      <Chip label={session.year} size="small" color="primary" />
+                      <Chip 
+                        label={session.year} 
+                        size="small" 
+                        sx={{ 
+                          bgcolor: alpha('#00BFA5', 0.1),
+                          color: '#00BFA5',
+                          fontWeight: 600,
+                          border: 'none',
+                        }}
+                      />
                     </TableCell>
-                    <TableCell>{session.students}</TableCell>
+                    <TableCell sx={{ color: '#64748B' }}>{session.students}</TableCell>
                     <TableCell>
-                      <Button size="small" variant="outlined" onClick={() => navigate('/allied-health/teacher/attendance')}>
+                      <Button 
+                        size="small" 
+                        variant="outlined" 
+                        onClick={() => navigate('/allied-health/teacher/attendance')}
+                        sx={{
+                          borderColor: '#00BFA5',
+                          color: '#00BFA5',
+                          '&:hover': {
+                            borderColor: '#00897B',
+                            bgcolor: alpha('#00BFA5', 0.08),
+                          },
+                        }}
+                      >
                         Attendance
                       </Button>
                     </TableCell>
@@ -247,34 +407,50 @@ export default function AlliedHealthTeacherDashboard() {
         </TabPanel>
 
         <TabPanel value={tabValue} index={2}>
-          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
             Certification & Skill Training Progress
           </Typography>
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Certification Area</TableCell>
-                  <TableCell align="center">Completed</TableCell>
-                  <TableCell align="center">Target</TableCell>
-                  <TableCell>Progress</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Certification Area</TableCell>
+                  <TableCell align="center" sx={{ fontWeight: 700, color: '#1A202C' }}>Completed</TableCell>
+                  <TableCell align="center" sx={{ fontWeight: 700, color: '#1A202C' }}>Target</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Progress</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {certificationProgress.map((item, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell sx={{ fontWeight: 600 }}>{item.certification}</TableCell>
-                    <TableCell align="center">{item.completed}</TableCell>
-                    <TableCell align="center">{item.target}</TableCell>
+                  <TableRow 
+                    key={index} 
+                    sx={{ 
+                      transition: 'all 0.2s ease',
+                      '&:hover': { 
+                        bgcolor: alpha('#00BFA5', 0.04),
+                      } 
+                    }}
+                  >
+                    <TableCell sx={{ fontWeight: 600, color: '#1A202C' }}>{item.certification}</TableCell>
+                    <TableCell align="center" sx={{ color: '#64748B' }}>{item.completed}</TableCell>
+                    <TableCell align="center" sx={{ color: '#64748B' }}>{item.target}</TableCell>
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <LinearProgress
                           variant="determinate"
                           value={item.progress}
-                          sx={{ flex: 1, height: 8, borderRadius: 1 }}
-                          color={item.progress >= 90 ? 'success' : item.progress >= 75 ? 'primary' : 'warning'}
+                          sx={{ 
+                            flex: 1, 
+                            height: 10, 
+                            borderRadius: 2,
+                            bgcolor: alpha('#00BFA5', 0.1),
+                            '& .MuiLinearProgress-bar': {
+                              bgcolor: item.progress >= 90 ? '#26A69A' : item.progress >= 75 ? '#00BFA5' : '#00897B',
+                              borderRadius: 2,
+                            },
+                          }}
                         />
-                        <Typography variant="body2" sx={{ minWidth: 50 }}>
+                        <Typography variant="body2" sx={{ minWidth: 50, fontWeight: 600, color: '#1A202C' }}>
                           {item.progress.toFixed(1)}%
                         </Typography>
                       </Box>
@@ -287,44 +463,66 @@ export default function AlliedHealthTeacherDashboard() {
         </TabPanel>
 
         <TabPanel value={tabValue} index={3}>
-          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
             Students Under Practical Training
           </Typography>
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Roll No</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Program</TableCell>
-                  <TableCell align="center">Attendance</TableCell>
-                  <TableCell align="center">Practical Hours</TableCell>
-                  <TableCell align="center">Certifications</TableCell>
-                  <TableCell>Performance</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Roll No</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Name</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Program</TableCell>
+                  <TableCell align="center" sx={{ fontWeight: 700, color: '#1A202C' }}>Attendance</TableCell>
+                  <TableCell align="center" sx={{ fontWeight: 700, color: '#1A202C' }}>Practical Hours</TableCell>
+                  <TableCell align="center" sx={{ fontWeight: 700, color: '#1A202C' }}>Certifications</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: '#1A202C' }}>Performance</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {studentSupervision.map((student, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell>{student.rollNo}</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>{student.name}</TableCell>
-                    <TableCell>{student.program}</TableCell>
+                  <TableRow 
+                    key={index} 
+                    sx={{ 
+                      transition: 'all 0.2s ease',
+                      '&:hover': { 
+                        bgcolor: alpha('#00BFA5', 0.04),
+                      } 
+                    }}
+                  >
+                    <TableCell sx={{ color: '#64748B' }}>{student.rollNo}</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#1A202C' }}>{student.name}</TableCell>
+                    <TableCell sx={{ color: '#64748B' }}>{student.program}</TableCell>
                     <TableCell align="center">
                       <Chip
                         label={`${student.attendance}%`}
                         size="small"
-                        color={student.attendance >= 85 ? 'success' : student.attendance >= 75 ? 'warning' : 'error'}
+                        sx={{
+                          bgcolor: student.attendance >= 85 
+                            ? alpha('#26A69A', 0.1) 
+                            : student.attendance >= 75 
+                            ? alpha('#FFA726', 0.1) 
+                            : alpha('#EF5350', 0.1),
+                          color: student.attendance >= 85 ? '#26A69A' : student.attendance >= 75 ? '#FFA726' : '#EF5350',
+                          fontWeight: 600,
+                          border: 'none',
+                        }}
                       />
                     </TableCell>
-                    <TableCell align="center">{student.practicalHours} hrs</TableCell>
-                    <TableCell align="center">
+                    <TableCell align="center" sx={{ color: '#64748B' }}>{student.practicalHours} hrs</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 600, color: '#1A202C' }}>
                       {student.certifications}/{student.total}
                     </TableCell>
                     <TableCell>
                       <Chip
                         label={student.performance}
                         size="small"
-                        color={student.performance === 'Excellent' ? 'success' : 'primary'}
+                        sx={{
+                          bgcolor: student.performance === 'Excellent' ? alpha('#26A69A', 0.1) : alpha('#00BFA5', 0.1),
+                          color: student.performance === 'Excellent' ? '#26A69A' : '#00BFA5',
+                          fontWeight: 600,
+                          border: 'none',
+                        }}
                       />
                     </TableCell>
                   </TableRow>

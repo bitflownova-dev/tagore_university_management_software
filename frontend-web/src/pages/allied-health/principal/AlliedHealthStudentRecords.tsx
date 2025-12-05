@@ -84,17 +84,26 @@ export default function AlliedHealthStudentRecords() {
   const [tabValue, setTabValue] = useState(0);
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Student Records
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Manage student academic records and information
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
@@ -146,7 +155,7 @@ export default function AlliedHealthStudentRecords() {
       </Grid>
 
       <Paper sx={{ p: 3 }}>
-        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)} sx={{ mb: 3 }}>
+        <Tabs value={tabValue} onChange={(_e, v) => setTabValue(v)} sx={{ mb: 3 }}>
           <Tab label="All Students" />
           <Tab label="By Department" />
           <Tab label="Academic Performance" />
@@ -172,7 +181,16 @@ export default function AlliedHealthStudentRecords() {
             <Button variant="outlined" startIcon={<FileDownload />}>
               Export
             </Button>
-            <Button variant="contained" startIcon={<Add />} sx={{ bgcolor: '#1565C0' }}>
+            <Button 
+              variant="contained" 
+              startIcon={<Add />} 
+              sx={{ 
+                bgcolor: '#00BFA5',
+                '&:hover': {
+                  bgcolor: '#00897B',
+                },
+              }}
+            >
               Add Student
             </Button>
           </Box>

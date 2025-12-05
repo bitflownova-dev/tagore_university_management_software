@@ -17,9 +17,10 @@ import {
   Chip,
   TextField,
   InputAdornment,
+  alpha,
 } from '@mui/material';
 import { useState } from 'react';
-import { Search, Add, FileDownload, CalendarToday } from '@mui/icons-material';
+import { Search, Add, CalendarToday } from '@mui/icons-material';
 
 const semesters = [
   {
@@ -79,60 +80,117 @@ export default function AlliedHealthAcademicManagement() {
   const [tabValue, setTabValue] = useState(0);
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Academic Management
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Manage semesters, exams, and academic calendar
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Active Semesters
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1565C0', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#00BFA5', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {semesters.filter(s => s.status === 'Active').length}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Upcoming Exams
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1976D2', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#00897B', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {exams.length}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Total Programs
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1E88E5', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#26A69A', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 14
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Clinical Rotations
               </Typography>
-              <Typography variant="h4" sx={{ color: '#2196F3', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#4DB6AC', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 8
               </Typography>
             </CardContent>
@@ -140,8 +198,32 @@ export default function AlliedHealthAcademicManagement() {
         </Grid>
       </Grid>
 
-      <Paper sx={{ p: 3 }}>
-        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)} sx={{ mb: 3 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+          bgcolor: '#FFFFFF',
+        }}
+      >
+        <Tabs 
+          value={tabValue} 
+          onChange={(_, v) => setTabValue(v)} 
+          sx={{ 
+            mb: 3,
+            '& .MuiTab-root': {
+              fontWeight: 600,
+              color: '#64748B',
+            },
+            '& .Mui-selected': {
+              color: '#00BFA5',
+            },
+            '& .MuiTabs-indicator': {
+              bgcolor: '#00BFA5',
+            },
+          }}
+        >
           <Tab label="Semesters" />
           <Tab label="Examinations" />
           <Tab label="Academic Calendar" />
@@ -182,9 +264,17 @@ export default function AlliedHealthAcademicManagement() {
                 </TableHead>
                 <TableBody>
                   {semesters.map((sem) => (
-                    <TableRow key={sem.name} hover>
+                    <TableRow 
+                      key={sem.name} 
+                      sx={{
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          bgcolor: alpha('#00BFA5', 0.04),
+                        },
+                      }}
+                    >
                       <TableCell>
-                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A202C' }}>
                           {sem.name}
                         </Typography>
                       </TableCell>
@@ -198,7 +288,11 @@ export default function AlliedHealthAcademicManagement() {
                         <Chip
                           label={sem.status}
                           size="small"
-                          color={sem.status === 'Active' ? 'success' : 'default'}
+                          sx={{
+                            bgcolor: sem.status === 'Active' ? alpha('#26A69A', 0.1) : alpha('#64748B', 0.1),
+                            color: sem.status === 'Active' ? '#26A69A' : '#64748B',
+                            fontWeight: 600,
+                          }}
                         />
                       </TableCell>
                       <TableCell>
@@ -248,9 +342,17 @@ export default function AlliedHealthAcademicManagement() {
                 </TableHead>
                 <TableBody>
                   {exams.map((exam) => (
-                    <TableRow key={exam.name} hover>
+                    <TableRow 
+                      key={exam.name} 
+                      sx={{
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          bgcolor: alpha('#00BFA5', 0.04),
+                        },
+                      }}
+                    >
                       <TableCell>
-                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A202C' }}>
                           {exam.name}
                         </Typography>
                       </TableCell>
@@ -258,7 +360,15 @@ export default function AlliedHealthAcademicManagement() {
                       <TableCell>{exam.date}</TableCell>
                       <TableCell>{exam.students}</TableCell>
                       <TableCell>
-                        <Chip label={exam.status} size="small" color="primary" />
+                        <Chip 
+                          label={exam.status} 
+                          size="small" 
+                          sx={{
+                            bgcolor: alpha('#00BFA5', 0.1),
+                            color: '#00BFA5',
+                            fontWeight: 600,
+                          }}
+                        />
                       </TableCell>
                       <TableCell>
                         <Button size="small" variant="outlined">

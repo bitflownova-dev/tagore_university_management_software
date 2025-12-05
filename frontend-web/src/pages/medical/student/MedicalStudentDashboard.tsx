@@ -23,12 +23,20 @@ import {
   LocalHospital,
   TrendingUp,
   Schedule,
+  VideoLibrary,
 } from '@mui/icons-material';
 
 export default function MedicalStudentDashboard() {
   const navigate = useNavigate();
 
   const quickActions = [
+    {
+      title: 'Learning Portal (LMS)',
+      icon: <VideoLibrary sx={{ fontSize: 40 }} />,
+      color: '#DC2626',
+      description: 'Videos & Assessments',
+      path: '/medical/student/lms',
+    },
     {
       title: 'Competency Browser',
       icon: <LibraryBooks sx={{ fontSize: 40 }} />,
@@ -49,13 +57,6 @@ export default function MedicalStudentDashboard() {
       color: '#ED6C02',
       description: 'View assessment results',
       path: '/medical/student/assessments',
-    },
-    {
-      title: 'Clinical Rotations',
-      icon: <LocalHospital sx={{ fontSize: 40 }} />,
-      color: '#D32F2F',
-      description: 'View rotation schedule',
-      path: '/medical/student/rotations',
     },
   ];
 

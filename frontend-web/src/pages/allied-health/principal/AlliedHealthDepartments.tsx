@@ -15,6 +15,7 @@ import {
   TableRow,
   TextField,
   InputAdornment,
+  alpha,
 } from '@mui/material';
 import { Search, Add, FileDownload, FilterList } from '@mui/icons-material';
 
@@ -86,24 +87,45 @@ const departments = [
 
 export default function AlliedHealthDepartments() {
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Allied Health Departments
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Manage paramedical and allied health science departments
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Total Departments
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1565C0', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#00BFA5', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {departments.length}
               </Typography>
             </CardContent>
@@ -168,7 +190,16 @@ export default function AlliedHealthDepartments() {
             <Button variant="outlined" startIcon={<FileDownload />}>
               Export
             </Button>
-            <Button variant="contained" startIcon={<Add />} sx={{ bgcolor: '#1565C0' }}>
+            <Button 
+              variant="contained" 
+              startIcon={<Add />} 
+              sx={{ 
+                bgcolor: '#00BFA5',
+                '&:hover': {
+                  bgcolor: '#00897B',
+                },
+              }}
+            >
               Add Department
             </Button>
           </Box>
@@ -190,9 +221,17 @@ export default function AlliedHealthDepartments() {
             </TableHead>
             <TableBody>
               {departments.map((dept) => (
-                <TableRow key={dept.name} hover>
+                <TableRow 
+                  key={dept.name} 
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: alpha('#00BFA5', 0.04),
+                    },
+                  }}
+                >
                   <TableCell>
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A202C' }}>
                       {dept.name}
                     </Typography>
                   </TableCell>

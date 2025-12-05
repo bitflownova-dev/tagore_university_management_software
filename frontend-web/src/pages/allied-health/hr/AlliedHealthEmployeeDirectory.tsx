@@ -16,6 +16,7 @@ import {
   TextField,
   InputAdornment,
   Avatar,
+  alpha,
 } from '@mui/material';
 import { Search, Add, FileDownload, Email, Phone } from '@mui/icons-material';
 
@@ -54,48 +55,93 @@ const employees = [
 
 export default function AlliedHealthEmployeeDirectory() {
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Employee Directory
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Manage employee records and information
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Total Employees
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1565C0', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#00BFA5', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 47
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Teaching Staff
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1976D2', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#00897B', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 37
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Non-Teaching Staff
               </Typography>
-              <Typography variant="h4" sx={{ color: '#1E88E5', fontWeight: 600 }}>
+              <Typography variant="h4" sx={{ color: '#26A69A', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 10
               </Typography>
             </CardContent>
@@ -103,7 +149,15 @@ export default function AlliedHealthEmployeeDirectory() {
         </Grid>
       </Grid>
 
-      <Paper sx={{ p: 3 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+          bgcolor: '#FFFFFF',
+        }}
+      >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <TextField
             placeholder="Search employees..."
@@ -118,10 +172,30 @@ export default function AlliedHealthEmployeeDirectory() {
             }}
           />
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button variant="outlined" startIcon={<FileDownload />}>
+            <Button 
+              variant="outlined" 
+              startIcon={<FileDownload />}
+              sx={{
+                borderColor: '#00BFA5',
+                color: '#00BFA5',
+                '&:hover': {
+                  borderColor: '#00897B',
+                  bgcolor: alpha('#00BFA5', 0.08),
+                },
+              }}
+            >
               Export
             </Button>
-            <Button variant="contained" startIcon={<Add />} sx={{ bgcolor: '#1565C0' }}>
+            <Button 
+              variant="contained" 
+              startIcon={<Add />} 
+              sx={{ 
+                bgcolor: '#00BFA5',
+                '&:hover': {
+                  bgcolor: '#00897B',
+                },
+              }}
+            >
               Add Employee
             </Button>
           </Box>
@@ -142,13 +216,21 @@ export default function AlliedHealthEmployeeDirectory() {
             </TableHead>
             <TableBody>
               {employees.map((emp) => (
-                <TableRow key={emp.id} hover>
+                <TableRow 
+                  key={emp.id} 
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: alpha('#00BFA5', 0.04),
+                    },
+                  }}
+                >
                   <TableCell>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Avatar sx={{ bgcolor: '#1565C0' }}>
+                      <Avatar sx={{ bgcolor: '#00BFA5' }}>
                         {emp.name.split(' ')[0][0]}{emp.name.split(' ')[1][0]}
                       </Avatar>
-                      <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A202C' }}>
                         {emp.name}
                       </Typography>
                     </Box>
@@ -169,10 +251,29 @@ export default function AlliedHealthEmployeeDirectory() {
                   </TableCell>
                   <TableCell>{emp.joinDate}</TableCell>
                   <TableCell>
-                    <Chip label={emp.status} size="small" color="success" />
+                    <Chip 
+                      label={emp.status} 
+                      size="small" 
+                      sx={{
+                        bgcolor: alpha('#26A69A', 0.1),
+                        color: '#26A69A',
+                        fontWeight: 600,
+                      }}
+                    />
                   </TableCell>
                   <TableCell>
-                    <Button size="small" variant="outlined">
+                    <Button 
+                      size="small" 
+                      variant="outlined"
+                      sx={{
+                        borderColor: '#00BFA5',
+                        color: '#00BFA5',
+                        '&:hover': {
+                          borderColor: '#00897B',
+                          bgcolor: alpha('#00BFA5', 0.08),
+                        },
+                      }}
+                    >
                       View Details
                     </Button>
                   </TableCell>

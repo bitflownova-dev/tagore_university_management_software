@@ -19,6 +19,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  alpha,
 } from '@mui/material';
 import { Search, FileDownload, Add } from '@mui/icons-material';
 
@@ -66,60 +67,117 @@ export default function AlliedHealthFeeCollection() {
   const totalPending = feeRecords.reduce((sum, r) => sum + r.pending, 0);
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Fee Collection
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Manage student fee payments and records
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Total Collection
               </Typography>
-              <Typography variant="h5" sx={{ color: '#2E7D32', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#26A69A', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 ₹{totalCollection.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Pending Amount
               </Typography>
-              <Typography variant="h5" sx={{ color: '#D32F2F', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#EF5350', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 ₹{totalPending.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Students Paid
               </Typography>
-              <Typography variant="h5" sx={{ color: '#1565C0', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#00BFA5', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {feeRecords.filter(r => r.status === 'Paid').length}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Collection Rate
               </Typography>
-              <Typography variant="h5" sx={{ color: '#1976D2', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#00897B', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 92%
               </Typography>
             </CardContent>
@@ -127,7 +185,15 @@ export default function AlliedHealthFeeCollection() {
         </Grid>
       </Grid>
 
-      <Paper sx={{ p: 3 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+          bgcolor: '#FFFFFF',
+        }}
+      >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Box sx={{ display: 'flex', gap: 2 }}>
             <TextField
@@ -162,10 +228,30 @@ export default function AlliedHealthFeeCollection() {
             </FormControl>
           </Box>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button variant="outlined" startIcon={<FileDownload />}>
+            <Button 
+              variant="outlined" 
+              startIcon={<FileDownload />}
+              sx={{
+                borderColor: '#00BFA5',
+                color: '#00BFA5',
+                '&:hover': {
+                  borderColor: '#00897B',
+                  bgcolor: alpha('#00BFA5', 0.08),
+                },
+              }}
+            >
               Export
             </Button>
-            <Button variant="contained" startIcon={<Add />} sx={{ bgcolor: '#1565C0' }}>
+            <Button 
+              variant="contained" 
+              startIcon={<Add />} 
+              sx={{ 
+                bgcolor: '#00BFA5',
+                '&:hover': {
+                  bgcolor: '#00897B',
+                },
+              }}
+            >
               Add Payment
             </Button>
           </Box>
@@ -188,10 +274,18 @@ export default function AlliedHealthFeeCollection() {
             </TableHead>
             <TableBody>
               {feeRecords.map((record) => (
-                <TableRow key={record.id} hover>
+                <TableRow 
+                  key={record.id} 
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: alpha('#00BFA5', 0.04),
+                    },
+                  }}
+                >
                   <TableCell>{record.rollNo}</TableCell>
                   <TableCell>
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A202C' }}>
                       {record.name}
                     </Typography>
                   </TableCell>
@@ -199,12 +293,12 @@ export default function AlliedHealthFeeCollection() {
                   <TableCell>{record.semester}</TableCell>
                   <TableCell align="right">₹{record.amount.toLocaleString()}</TableCell>
                   <TableCell align="right">
-                    <Typography variant="body2" sx={{ color: '#2E7D32', fontWeight: 600 }}>
+                    <Typography variant="body2" sx={{ color: '#26A69A', fontWeight: 600 }}>
                       ₹{record.paid.toLocaleString()}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant="body2" sx={{ color: record.pending > 0 ? '#D32F2F' : 'inherit' }}>
+                    <Typography variant="body2" sx={{ color: record.pending > 0 ? '#EF5350' : 'inherit' }}>
                       ₹{record.pending.toLocaleString()}
                     </Typography>
                   </TableCell>
@@ -212,7 +306,15 @@ export default function AlliedHealthFeeCollection() {
                     <Chip
                       label={record.status}
                       size="small"
-                      color={record.status === 'Paid' ? 'success' : record.status === 'Partial' ? 'warning' : 'error'}
+                      sx={{
+                        bgcolor: record.status === 'Paid' 
+                          ? alpha('#26A69A', 0.1) 
+                          : record.status === 'Partial' 
+                          ? alpha('#FFA726', 0.1) 
+                          : alpha('#EF5350', 0.1),
+                        color: record.status === 'Paid' ? '#26A69A' : record.status === 'Partial' ? '#FFA726' : '#EF5350',
+                        fontWeight: 600,
+                      }}
                     />
                   </TableCell>
                   <TableCell>{record.date}</TableCell>

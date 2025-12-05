@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -8,17 +8,18 @@ import {
   Card,
   CardContent,
   CardActionArea,
-  Tabs,
-  Tab,
+  alpha,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  Chip,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Chip,
-  LinearProgress,
-  Avatar,
 } from '@mui/material';
 import {
   School,
@@ -31,8 +32,10 @@ import {
   MenuBook,
   HealthAndSafety,
   Science,
+  ArrowForward,
+  FilterList,
 } from '@mui/icons-material';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 interface College {
   id: string;
@@ -42,519 +45,512 @@ interface College {
   students: number;
   faculty: number;
   departments: number;
-  revenue: number;
 }
 
 const colleges: College[] = [
   {
     id: 'medical',
-    name: 'Medical College & Hospital',
+    name: 'Medical College',
     icon: <LocalHospital />,
-    color: '#D32F2F',
+    color: '#DC2626',
     students: 800,
     faculty: 142,
     departments: 18,
-    revenue: 17100000,
   },
   {
     id: 'engineering',
     name: 'Engineering College',
     icon: <Engineering />,
-    color: '#1976D2',
+    color: '#2563EB',
     students: 2400,
     faculty: 180,
     departments: 8,
-    revenue: 8500000,
   },
   {
     id: 'dental',
-    name: 'Dental College & Hospital',
+    name: 'Dental College',
     icon: <Biotech />,
-    color: '#0288D1',
+    color: '#0891B2',
     students: 400,
     faculty: 65,
     departments: 9,
-    revenue: 6200000,
   },
   {
     id: 'arts-science',
-    name: 'Arts & Science College',
+    name: 'Arts & Science',
     icon: <MenuBook />,
-    color: '#388E3C',
+    color: '#059669',
     students: 1800,
     faculty: 95,
     departments: 12,
-    revenue: 4800000,
   },
   {
     id: 'nursing',
     name: 'College of Nursing',
     icon: <HealthAndSafety />,
-    color: '#7B1FA2',
+    color: '#9333EA',
     students: 320,
     faculty: 42,
     departments: 5,
-    revenue: 3500000,
   },
   {
     id: 'allied-health',
-    name: 'Institute of Allied Health Sciences',
+    name: 'Allied Health Sciences',
     icon: <Science />,
-    color: '#F57C00',
+    color: '#F59E0B',
     students: 480,
     faculty: 58,
     departments: 7,
-    revenue: 4200000,
   },
 ];
 
-const monthlyTrends = [
-  { month: 'Jul', medical: 4500, engineering: 2200, dental: 380, arts: 1750, nursing: 310, allied: 450 },
-  { month: 'Aug', medical: 4800, engineering: 2350, dental: 390, arts: 1780, nursing: 318, allied: 465 },
-  { month: 'Sep', medical: 5200, engineering: 2400, dental: 395, arts: 1800, nursing: 320, allied: 475 },
-  { month: 'Oct', medical: 5500, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
-  { month: 'Nov', medical: 5800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
-  { month: 'Dec', medical: 6200, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
+const monthlyData = [
+  { month: 'Jul', medical: 800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
+  { month: 'Aug', medical: 800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
+  { month: 'Sep', medical: 800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
+  { month: 'Oct', medical: 800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
+  { month: 'Nov', medical: 800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
+  { month: 'Dec', medical: 800, engineering: 2400, dental: 400, arts: 1800, nursing: 320, allied: 480 },
 ];
+
+const COLORS = ['#DC2626', '#2563EB', '#0891B2', '#059669', '#9333EA', '#F59E0B'];
 
 export default function UniversityDirectorDashboard() {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedCollege, setSelectedCollege] = useState<string>('all');
+  const [timeRange, setTimeRange] = useState<string>('month');
 
-  const selectedCollege = selectedTab === 0 ? null : colleges[selectedTab - 1];
+  const totalStudents = colleges.reduce((sum, c) => sum + c.students, 0);
+  const totalFaculty = colleges.reduce((sum, c) => sum + c.faculty, 0);
 
-  const totalStats = {
-    students: colleges.reduce((sum, c) => sum + c.students, 0),
-    faculty: colleges.reduce((sum, c) => sum + c.faculty, 0),
-    departments: colleges.reduce((sum, c) => sum + c.departments, 0),
-    revenue: colleges.reduce((sum, c) => sum + c.revenue, 0),
+  const filteredColleges = selectedCollege === 'all' 
+    ? colleges 
+    : colleges.filter(c => c.id === selectedCollege);
+
+  const stats = {
+    students: filteredColleges.reduce((sum, c) => sum + c.students, 0),
+    faculty: filteredColleges.reduce((sum, c) => sum + c.faculty, 0),
+    colleges: filteredColleges.length,
+    ratio: (filteredColleges.reduce((sum, c) => sum + c.students, 0) / 
+            filteredColleges.reduce((sum, c) => sum + c.faculty, 0)).toFixed(1),
   };
 
-  const formatCurrency = (value: number) => {
-    if (value >= 10000000) return `₹${(value / 10000000).toFixed(2)} Cr`;
-    if (value >= 100000) return `₹${(value / 100000).toFixed(2)} L`;
-    return `₹${(value / 1000).toFixed(0)} K`;
-  };
-
-  const getStatsForView = () => {
-    if (selectedCollege) {
-      return {
-        students: selectedCollege.students,
-        faculty: selectedCollege.faculty,
-        departments: selectedCollege.departments,
-        revenue: selectedCollege.revenue,
-      };
-    }
-    return totalStats;
-  };
-
-  const stats = getStatsForView();
+  const pieChartData = colleges.map(college => ({
+    name: college.name,
+    value: college.students,
+    color: college.color,
+  }));
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1976D2 0%, #1565C0 100%)' }}>
+    <Box sx={{ p: 3 }}>
+      {/* Header */}
+      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #B45309 0%, #EA580C 100%)' }}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
           University Director Dashboard
         </Typography>
         <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          Tagore University - Multi-College Management System
+          Tagore University - Strategic Management & Oversight
         </Typography>
       </Paper>
 
-      <Paper sx={{ mb: 3 }}>
-        <Tabs
-          value={selectedTab}
-          onChange={(_, value) => setSelectedTab(value)}
-          variant="scrollable"
-          scrollButtons="auto"
-          sx={{ borderBottom: 1, borderColor: 'divider' }}
-        >
-          <Tab label="All Colleges" />
-          {colleges.map((college) => (
-            <Tab
-              key={college.id}
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Avatar sx={{ bgcolor: college.color, width: 24, height: 24 }}>
-                    {React.cloneElement(college.icon, { sx: { fontSize: 14 } })}
-                  </Avatar>
+      {/* Filters */}
+      <Paper sx={{ p: 3, mb: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <FilterList sx={{ color: '#64748B' }} />
+            <Typography variant="body2" sx={{ fontWeight: 600, color: '#64748B' }}>
+              Filters:
+            </Typography>
+          </Box>
+          
+          <FormControl size="small" sx={{ minWidth: 200 }}>
+            <InputLabel>College</InputLabel>
+            <Select
+              value={selectedCollege}
+              label="College"
+              onChange={(e) => setSelectedCollege(e.target.value)}
+            >
+              <MenuItem value="all">All Colleges</MenuItem>
+              {colleges.map((college) => (
+                <MenuItem key={college.id} value={college.id}>
                   {college.name}
-                </Box>
-              }
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <InputLabel>Time Range</InputLabel>
+            <Select
+              value={timeRange}
+              label="Time Range"
+              onChange={(e) => setTimeRange(e.target.value)}
+            >
+              <MenuItem value="week">This Week</MenuItem>
+              <MenuItem value="month">This Month</MenuItem>
+              <MenuItem value="semester">This Semester</MenuItem>
+              <MenuItem value="year">This Year</MenuItem>
+            </Select>
+          </FormControl>
+
+          {selectedCollege !== 'all' && (
+            <Chip 
+              label={`Showing: ${colleges.find(c => c.id === selectedCollege)?.name}`}
+              onDelete={() => setSelectedCollege('all')}
+              color="primary"
+              variant="outlined"
             />
-          ))}
-        </Tabs>
+          )}
+        </Box>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      {/* University Overview Cards */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card
+            elevation={0}
             sx={{
-              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0,0,0,0.08)',
               transition: 'all 0.3s ease',
-              '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 },
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: `0 12px 24px ${alpha('#2563EB', 0.15)}`,
+              },
             }}
           >
-            <CardActionArea onClick={() => navigate('/director/students')} sx={{ p: 3, height: '100%' }}>
+            <CardActionArea onClick={() => navigate('/director/students')} sx={{ p: 3 }}>
               <Box
                 sx={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: '50%',
+                  width: 56,
+                  height: 56,
+                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bgcolor: '#1976D220',
-                  color: '#1976D2',
-                  margin: '0 auto 16px',
+                  bgcolor: alpha('#2563EB', 0.1),
+                  mb: 2,
                 }}
               >
-                <School sx={{ fontSize: 40 }} />
+                <School sx={{ fontSize: 32, color: '#2563EB' }} />
               </Box>
-              <Typography variant="h3" align="center" sx={{ fontWeight: 700, color: '#1976D2', mb: 1 }}>
+              <Typography variant="h4" sx={{ fontWeight: 800, color: '#1A202C', mb: 0.5 }}>
                 {stats.students.toLocaleString()}
               </Typography>
-              <Typography variant="subtitle1" align="center" sx={{ fontWeight: 600 }}>
+              <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 600, mb: 1 }}>
                 Total Students
               </Typography>
-              <Typography variant="body2" align="center" color="text.secondary">
-                {selectedCollege ? selectedCollege.name : 'Across All Colleges'}
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#2563EB' }}>
+                <Typography variant="caption" sx={{ fontWeight: 600 }}>View Details</Typography>
+                <ArrowForward sx={{ fontSize: 14 }} />
+              </Box>
             </CardActionArea>
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
           <Card
+            elevation={0}
             sx={{
-              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0,0,0,0.08)',
               transition: 'all 0.3s ease',
-              '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 },
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: `0 12px 24px ${alpha('#059669', 0.15)}`,
+              },
             }}
           >
-            <CardActionArea onClick={() => navigate('/director/staff')} sx={{ p: 3, height: '100%' }}>
+            <CardActionArea onClick={() => navigate('/director/staff')} sx={{ p: 3 }}>
               <Box
                 sx={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: '50%',
+                  width: 56,
+                  height: 56,
+                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bgcolor: '#2E7D3220',
-                  color: '#2E7D32',
-                  margin: '0 auto 16px',
+                  bgcolor: alpha('#059669', 0.1),
+                  mb: 2,
                 }}
               >
-                <People sx={{ fontSize: 40 }} />
+                <People sx={{ fontSize: 32, color: '#059669' }} />
               </Box>
-              <Typography variant="h3" align="center" sx={{ fontWeight: 700, color: '#2E7D32', mb: 1 }}>
-                {stats.faculty.toLocaleString()}
+              <Typography variant="h4" sx={{ fontWeight: 800, color: '#1A202C', mb: 0.5 }}>
+                {stats.faculty}
               </Typography>
-              <Typography variant="subtitle1" align="center" sx={{ fontWeight: 600 }}>
+              <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 600, mb: 1 }}>
                 Faculty Members
               </Typography>
-              <Typography variant="body2" align="center" color="text.secondary">
-                {selectedCollege ? selectedCollege.name : 'Across All Colleges'}
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#059669' }}>
+                <Typography variant="caption" sx={{ fontWeight: 600 }}>View Details</Typography>
+                <ArrowForward sx={{ fontSize: 14 }} />
+              </Box>
             </CardActionArea>
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
           <Card
+            elevation={0}
             sx={{
-              height: '100%',
+              borderRadius: 3,
+              border: '1px solid rgba(0,0,0,0.08)',
               transition: 'all 0.3s ease',
-              '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 },
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: `0 12px 24px ${alpha('#F59E0B', 0.15)}`,
+              },
             }}
           >
-            <CardActionArea onClick={() => navigate('/director/colleges')} sx={{ p: 3, height: '100%' }}>
+            <CardActionArea onClick={() => navigate('/director/colleges')} sx={{ p: 3 }}>
               <Box
                 sx={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: '50%',
+                  width: 56,
+                  height: 56,
+                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bgcolor: '#ED6C0220',
-                  color: '#ED6C02',
-                  margin: '0 auto 16px',
+                  bgcolor: alpha('#F59E0B', 0.1),
+                  mb: 2,
                 }}
               >
-                <Business sx={{ fontSize: 40 }} />
+                <Business sx={{ fontSize: 32, color: '#F59E0B' }} />
               </Box>
-              <Typography variant="h3" align="center" sx={{ fontWeight: 700, color: '#ED6C02', mb: 1 }}>
-                {selectedCollege ? stats.departments : colleges.length}
+              <Typography variant="h4" sx={{ fontWeight: 800, color: '#1A202C', mb: 0.5 }}>
+                {stats.colleges}
               </Typography>
-              <Typography variant="subtitle1" align="center" sx={{ fontWeight: 600 }}>
-                {selectedCollege ? 'Departments' : 'Colleges'}
+              <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 600, mb: 1 }}>
+                {selectedCollege === 'all' ? 'Colleges' : 'College Selected'}
               </Typography>
-              <Typography variant="body2" align="center" color="text.secondary">
-                {selectedCollege ? selectedCollege.name : 'Total Institutions'}
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#F59E0B' }}>
+                <Typography variant="caption" sx={{ fontWeight: 600 }}>View Details</Typography>
+                <ArrowForward sx={{ fontSize: 14 }} />
+              </Box>
             </CardActionArea>
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent sx={{ p: 3, height: '100%' }}>
+          <Card
+            elevation={0}
+            sx={{
+              borderRadius: 3,
+              border: '1px solid rgba(0,0,0,0.08)',
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
               <Box
                 sx={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: '50%',
+                  width: 56,
+                  height: 56,
+                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bgcolor: '#9C27B020',
-                  color: '#9C27B0',
-                  margin: '0 auto 16px',
+                  bgcolor: alpha('#9333EA', 0.1),
+                  mb: 2,
                 }}
               >
-                <TrendingUp sx={{ fontSize: 40 }} />
+                <TrendingUp sx={{ fontSize: 32, color: '#9333EA' }} />
               </Box>
-              <Typography variant="h3" align="center" sx={{ fontWeight: 700, color: '#9C27B0', mb: 1 }}>
-                {formatCurrency(stats.revenue)}
+              <Typography variant="h4" sx={{ fontWeight: 800, color: '#1A202C', mb: 0.5 }}>
+                1:{stats.ratio}
               </Typography>
-              <Typography variant="subtitle1" align="center" sx={{ fontWeight: 600 }}>
-                Monthly Revenue
-              </Typography>
-              <Typography variant="body2" align="center" color="text.secondary">
-                {selectedCollege ? selectedCollege.name : 'Combined Revenue'}
+              <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 600 }}>
+                Student-Faculty Ratio
               </Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-      {selectedTab === 0 && (
-        <Grid container spacing={3} sx={{ mb: 3 }}>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                All Colleges Overview
-              </Typography>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>College</TableCell>
-                      <TableCell align="center">Students</TableCell>
-                      <TableCell align="center">Faculty</TableCell>
-                      <TableCell align="center">Departments</TableCell>
-                      <TableCell align="center">Faculty:Student Ratio</TableCell>
-                      <TableCell align="right">Monthly Revenue</TableCell>
-                      <TableCell align="center">Status</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {colleges.map((college) => {
-                      const ratio = (college.students / college.faculty).toFixed(1);
-                      return (
-                        <TableRow key={college.id} hover sx={{ cursor: 'pointer' }}>
-                          <TableCell>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                              <Avatar sx={{ bgcolor: college.color }}>
-                                {React.cloneElement(college.icon, { sx: { fontSize: 20 } })}
-                              </Avatar>
-                              <Typography variant="subtitle2" fontWeight={600}>
-                                {college.name}
-                              </Typography>
-                            </Box>
-                          </TableCell>
-                          <TableCell align="center">
-                            <Chip label={college.students.toLocaleString()} color="primary" size="small" />
-                          </TableCell>
-                          <TableCell align="center">
-                            <Chip label={college.faculty} color="success" size="small" />
-                          </TableCell>
-                          <TableCell align="center">{college.departments}</TableCell>
-                          <TableCell align="center">
-                            <Typography variant="body2" fontWeight={600}>
-                              1:{ratio}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="right" sx={{ fontWeight: 600 }}>
-                            {formatCurrency(college.revenue)}
-                          </TableCell>
-                          <TableCell align="center">
-                            <Chip label="Active" size="small" color="success" />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 700, bgcolor: '#f5f5f5' }}>Total</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 700, bgcolor: '#f5f5f5' }}>
-                        {totalStats.students.toLocaleString()}
-                      </TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 700, bgcolor: '#f5f5f5' }}>
-                        {totalStats.faculty}
-                      </TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 700, bgcolor: '#f5f5f5' }}>
-                        {totalStats.departments}
-                      </TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 700, bgcolor: '#f5f5f5' }}>
-                        1:{(totalStats.students / totalStats.faculty).toFixed(1)}
-                      </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: 700, bgcolor: '#f5f5f5' }}>
-                        {formatCurrency(totalStats.revenue)}
-                      </TableCell>
-                      <TableCell sx={{ bgcolor: '#f5f5f5' }} />
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Paper>
-          </Grid>
+      {/* Charts Section */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        {/* Enrollment Trend */}
+        <Grid item xs={12} md={8}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              border: '1px solid rgba(0,0,0,0.08)',
+              height: '100%',
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
+              Enrollment Trend ({timeRange === 'week' ? 'Weekly' : timeRange === 'month' ? 'Monthly' : timeRange === 'semester' ? 'Semester' : 'Yearly'})
+            </Typography>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={monthlyData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+                <XAxis dataKey="month" stroke="#64748B" style={{ fontSize: 12 }} />
+                <YAxis stroke="#64748B" style={{ fontSize: 12 }} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#fff',
+                    border: '1px solid rgba(0,0,0,0.08)',
+                    borderRadius: 8,
+                  }}
+                />
+                <Legend />
+                {selectedCollege === 'all' ? (
+                  <>
+                    <Bar dataKey="medical" fill="#2563EB" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="engineering" fill="#059669" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="arts" fill="#F59E0B" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="dental" fill="#9333EA" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="nursing" fill="#DC2626" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="allied" fill="#0891B2" radius={[8, 8, 0, 0]} />
+                  </>
+                ) : (
+                  <Bar
+                    dataKey={selectedCollege}
+                    fill={
+                      selectedCollege === 'medical' ? '#2563EB' :
+                      selectedCollege === 'engineering' ? '#059669' :
+                      selectedCollege === 'arts' ? '#F59E0B' :
+                      selectedCollege === 'dental' ? '#9333EA' :
+                      selectedCollege === 'nursing' ? '#DC2626' : '#0891B2'
+                    }
+                    radius={[8, 8, 0, 0]}
+                  />
+                )}
+              </BarChart>
+            </ResponsiveContainer>
+          </Paper>
         </Grid>
-      )}
 
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-          {selectedCollege ? `${selectedCollege.name} - Student Enrollment Trend` : 'University-Wide Student Enrollment Trend'}
+        {/* Student Distribution Pie Chart */}
+        <Grid item xs={12} md={4}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              border: '1px solid rgba(0,0,0,0.08)',
+              height: '100%',
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1A202C', mb: 3 }}>
+              Student Distribution
+            </Typography>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={pieChartData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {pieChartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </Paper>
+        </Grid>
+      </Grid>
+
+      {/* Colleges Grid */}
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, color: '#1A202C', mb: 2 }}>
+          {selectedCollege === 'all' ? 'All University Colleges' : 'Selected College'}
         </Typography>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={monthlyTrends}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {selectedCollege ? (
-              <Line
-                type="monotone"
-                dataKey={selectedCollege.id.replace('-', '')}
-                stroke={selectedCollege.color}
-                name={selectedCollege.name}
-                strokeWidth={3}
-              />
-            ) : (
-              <>
-                <Line type="monotone" dataKey="medical" stroke="#D32F2F" name="Medical" strokeWidth={2} />
-                <Line type="monotone" dataKey="engineering" stroke="#1976D2" name="Engineering" strokeWidth={2} />
-                <Line type="monotone" dataKey="dental" stroke="#0288D1" name="Dental" strokeWidth={2} />
-                <Line type="monotone" dataKey="arts" stroke="#388E3C" name="Arts & Science" strokeWidth={2} />
-                <Line type="monotone" dataKey="nursing" stroke="#7B1FA2" name="Nursing" strokeWidth={2} />
-                <Line type="monotone" dataKey="allied" stroke="#F57C00" name="Allied Health" strokeWidth={2} />
-              </>
-            )}
-          </LineChart>
-        </ResponsiveContainer>
-      </Paper>
+        <Typography variant="body2" sx={{ color: '#64748B', mb: 3 }}>
+          {selectedCollege === 'all' 
+            ? 'Click on any college to access its portal and manage college-specific operations'
+            : 'Showing details for the selected college. Clear filter to view all colleges.'}
+        </Typography>
+      </Box>
 
-      {selectedCollege && (
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                Key Performance Indicators
-              </Typography>
-              <Box sx={{ mt: 2 }}>
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                    <Typography variant="body2">Student Satisfaction</Typography>
-                    <Typography variant="body2" fontWeight={600}>
-                      {selectedCollege.id === 'medical' ? '88%' : '85%'}
+      <Grid container spacing={3}>
+        {filteredColleges.map((college) => (
+          <Grid item xs={12} sm={6} md={4} key={college.id}>
+            <Card
+              elevation={0}
+              sx={{
+                borderRadius: 3,
+                border: '1px solid rgba(0,0,0,0.08)',
+                height: '100%',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  boxShadow: `0 20px 40px ${alpha(college.color, 0.2)}`,
+                  borderColor: college.color,
+                },
+              }}
+            >
+              <CardActionArea 
+                onClick={() => navigate(`/${college.id}`)}
+                sx={{ p: 3, height: '100%' }}
+              >
+                <Box
+                  sx={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: 3,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: alpha(college.color, 0.1),
+                    mb: 2,
+                  }}
+                >
+                  {college.icon && 
+                    typeof college.icon === 'object' && 
+                    'type' in college.icon 
+                      ? { ...college.icon, props: { ...college.icon.props, sx: { fontSize: 36, color: college.color } } }
+                      : college.icon
+                  }
+                </Box>
+                <Typography variant="h6" sx={{ fontWeight: 700, color: '#1A202C', mb: 2 }}>
+                  {college.name}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body2" sx={{ color: '#64748B' }}>
+                      Students
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 700, color: '#1A202C' }}>
+                      {college.students.toLocaleString()}
                     </Typography>
                   </Box>
-                  <LinearProgress
-                    variant="determinate"
-                    value={selectedCollege.id === 'medical' ? 88 : 85}
-                    sx={{ height: 8, borderRadius: 1 }}
-                    color="success"
-                  />
-                </Box>
-                <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                    <Typography variant="body2">Faculty Utilization</Typography>
-                    <Typography variant="body2" fontWeight={600}>
-                      {selectedCollege.id === 'medical' ? '92%' : '88%'}
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body2" sx={{ color: '#64748B' }}>
+                      Faculty
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 700, color: '#1A202C' }}>
+                      {college.faculty}
                     </Typography>
                   </Box>
-                  <LinearProgress
-                    variant="determinate"
-                    value={selectedCollege.id === 'medical' ? 92 : 88}
-                    sx={{ height: 8, borderRadius: 1 }}
-                    color="primary"
-                  />
-                </Box>
-                <Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                    <Typography variant="body2">Accreditation Compliance</Typography>
-                    <Typography variant="body2" fontWeight={600}>
-                      {selectedCollege.id === 'medical' ? '95%' : '90%'}
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body2" sx={{ color: '#64748B' }}>
+                      Departments
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 700, color: '#1A202C' }}>
+                      {college.departments}
                     </Typography>
                   </Box>
-                  <LinearProgress
-                    variant="determinate"
-                    value={selectedCollege.id === 'medical' ? 95 : 90}
-                    sx={{ height: 8, borderRadius: 1 }}
-                    color="success"
-                  />
                 </Box>
-              </Box>
-            </Paper>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: college.color }}>
+                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    View Portal
+                  </Typography>
+                  <ArrowForward sx={{ fontSize: 18 }} />
+                </Box>
+              </CardActionArea>
+            </Card>
           </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                Quick Actions
-              </Typography>
-              <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item xs={6}>
-                  <Card
-                    sx={{ bgcolor: `${selectedCollege.color}10`, cursor: 'pointer', '&:hover': { bgcolor: `${selectedCollege.color}20` } }}
-                    onClick={() => navigate('/director/staff')}
-                  >
-                    <CardContent sx={{ textAlign: 'center', py: 3 }}>
-                      <People sx={{ fontSize: 40, color: selectedCollege.color, mb: 1 }} />
-                      <Typography variant="subtitle2">Manage Faculty</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={6}>
-                  <Card
-                    sx={{ bgcolor: `${selectedCollege.color}10`, cursor: 'pointer', '&:hover': { bgcolor: `${selectedCollege.color}20` } }}
-                    onClick={() => navigate('/director/students')}
-                  >
-                    <CardContent sx={{ textAlign: 'center', py: 3 }}>
-                      <School sx={{ fontSize: 40, color: selectedCollege.color, mb: 1 }} />
-                      <Typography variant="subtitle2">View Students</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={6}>
-                  <Card
-                    sx={{ bgcolor: `${selectedCollege.color}10`, cursor: 'pointer', '&:hover': { bgcolor: `${selectedCollege.color}20` } }}
-                    onClick={() => navigate('/director/colleges')}
-                  >
-                    <CardContent sx={{ textAlign: 'center', py: 3 }}>
-                      <Business sx={{ fontSize: 40, color: selectedCollege.color, mb: 1 }} />
-                      <Typography variant="subtitle2">Departments</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={6}>
-                  <Card
-                    sx={{ bgcolor: `${selectedCollege.color}10`, cursor: 'pointer', '&:hover': { bgcolor: `${selectedCollege.color}20` } }}
-                    onClick={() => navigate('/director/analytics')}
-                  >
-                    <CardContent sx={{ textAlign: 'center', py: 3 }}>
-                      <TrendingUp sx={{ fontSize: 40, color: selectedCollege.color, mb: 1 }} />
-                      <Typography variant="subtitle2">Analytics</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-        </Grid>
-      )}
+        ))}
+      </Grid>
     </Box>
   );
 }

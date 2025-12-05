@@ -17,6 +17,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  alpha,
 } from '@mui/material';
 import { FileDownload, Send } from '@mui/icons-material';
 
@@ -61,48 +62,93 @@ export default function AlliedHealthPayrollManagement() {
   const pendingPayments = payrollData.filter(p => p.status === 'Pending').length;
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'white' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#F8FBFD', py: 4 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          background: 'linear-gradient(135deg, #00BFA5 0%, #00897B 100%)',
+          borderRadius: 3,
+          boxShadow: '0 10px 40px rgba(0, 191, 165, 0.2)',
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>
           Payroll Management
         </Typography>
-        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.95)' }}>
           Manage employee salaries and payroll processing
         </Typography>
       </Paper>
 
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Total Payroll
               </Typography>
-              <Typography variant="h5" sx={{ color: '#1565C0', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#00BFA5', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 ₹{totalPayroll.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Pending Payments
               </Typography>
-              <Typography variant="h5" sx={{ color: '#F57C00', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#FFA726', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {pendingPayments}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card 
+            elevation={0}
+            sx={{
+              bgcolor: '#FFFFFF',
+              borderRadius: 3,
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0, 191, 165, 0.15)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: '#64748B', mb: 1 }} gutterBottom>
                 Processed
               </Typography>
-              <Typography variant="h5" sx={{ color: '#2E7D32', fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ color: '#26A69A', fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {payrollData.length - pendingPayments}
               </Typography>
             </CardContent>
@@ -110,7 +156,15 @@ export default function AlliedHealthPayrollManagement() {
         </Grid>
       </Grid>
 
-      <Paper sx={{ p: 3 }}>
+      <Paper 
+        elevation={0}
+        sx={{ 
+          p: 4,
+          borderRadius: 3,
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+          bgcolor: '#FFFFFF',
+        }}
+      >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Box sx={{ display: 'flex', gap: 2 }}>
             <FormControl size="small" sx={{ width: 150 }}>
@@ -130,10 +184,30 @@ export default function AlliedHealthPayrollManagement() {
             </FormControl>
           </Box>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button variant="outlined" startIcon={<FileDownload />}>
+            <Button 
+              variant="outlined" 
+              startIcon={<FileDownload />}
+              sx={{
+                borderColor: '#00BFA5',
+                color: '#00BFA5',
+                '&:hover': {
+                  borderColor: '#00897B',
+                  bgcolor: alpha('#00BFA5', 0.08),
+                },
+              }}
+            >
               Export
             </Button>
-            <Button variant="contained" startIcon={<Send />} sx={{ bgcolor: '#1565C0' }}>
+            <Button 
+              variant="contained" 
+              startIcon={<Send />} 
+              sx={{ 
+                bgcolor: '#00BFA5',
+                '&:hover': {
+                  bgcolor: '#00897B',
+                },
+              }}
+            >
               Process All
             </Button>
           </Box>
@@ -155,7 +229,15 @@ export default function AlliedHealthPayrollManagement() {
             </TableHead>
             <TableBody>
               {payrollData.map((emp) => (
-                <TableRow key={emp.id} hover>
+                <TableRow 
+                  key={emp.id} 
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: alpha('#00BFA5', 0.04),
+                    },
+                  }}
+                >
                   <TableCell>{emp.name}</TableCell>
                   <TableCell>{emp.department}</TableCell>
                   <TableCell>{emp.designation}</TableCell>
@@ -163,7 +245,7 @@ export default function AlliedHealthPayrollManagement() {
                   <TableCell align="right">₹{emp.allowances.toLocaleString()}</TableCell>
                   <TableCell align="right">₹{emp.deductions.toLocaleString()}</TableCell>
                   <TableCell align="right">
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A202C' }}>
                       ₹{emp.net.toLocaleString()}
                     </Typography>
                   </TableCell>
@@ -171,7 +253,11 @@ export default function AlliedHealthPayrollManagement() {
                     <Chip
                       label={emp.status}
                       size="small"
-                      color={emp.status === 'Processed' ? 'success' : 'warning'}
+                      sx={{
+                        bgcolor: emp.status === 'Processed' ? alpha('#26A69A', 0.1) : alpha('#FFA726', 0.1),
+                        color: emp.status === 'Processed' ? '#26A69A' : '#FFA726',
+                        fontWeight: 600,
+                      }}
                     />
                   </TableCell>
                 </TableRow>

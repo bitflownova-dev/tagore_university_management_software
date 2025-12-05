@@ -185,8 +185,8 @@ export default function CollegesAndDepartments() {
   };
 
   return (
-    <Box>
-      <Paper sx={{ p: 3, mb: 3 }}>
+    <Box sx={{ p: 3 }}>
+      <Paper sx={{ p: 3, mb: 3 }}>  
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>

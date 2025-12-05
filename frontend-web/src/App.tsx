@@ -53,6 +53,7 @@ import ClinicalRotations from './pages/medical/student/ClinicalRotations';
 import AssessmentResults from './pages/medical/student/AssessmentResults';
 
 // Medical College Portal Pages
+import MedicalDirectorDashboard from './pages/medical/director/MedicalDirectorDashboard';
 import MedicalPrincipalDashboard from './pages/medical/principal/MedicalPrincipalDashboard';
 import MedicalTeacherDashboard from './pages/medical/teacher/MedicalTeacherDashboard';
 import MedicalHRDashboard from './pages/medical/hr/MedicalHRDashboard';
@@ -68,9 +69,11 @@ import LogbookApproval from './pages/medical/teacher/LogbookApproval';
 import MedicalAttendancePage from './pages/medical/teacher/MedicalAttendancePage';
 import MedicalMarksEntry from './pages/medical/teacher/MedicalMarksEntry';
 import MedicalMyClasses from './pages/medical/teacher/MedicalMyClasses';
+import MedicalLMS from './pages/medical/teacher/MedicalLMS';
 
 // Medical College Student Pages
 import MedicalFeePayments from './pages/medical/student/MedicalFeePayments';
+import MedicalStudentLMS from './pages/medical/student/MedicalStudentLMS';
 
 // Medical College Parent Pages
 import MedicalParentDashboard from './pages/medical/parent/MedicalParentDashboard';
@@ -248,7 +251,7 @@ function App() {
       
       {/* University Director Portal */}
       <Route path="/director" element={<DirectorPortalSelection />} />
-      <Route path="/director" element={<DashboardLayout />}>
+      <Route path="/director/*" element={<DashboardLayout />}>
         <Route path="dashboard" element={<UniversityDirectorDashboard />} />
         <Route path="staff" element={<StaffManagement />} />
         <Route path="students" element={<UniversityStudentManagement />} />
@@ -266,9 +269,18 @@ function App() {
       <Route path="/dental" element={<DentalPortalSelection />} />
       <Route path="/arts-science" element={<ArtsSciencePortalSelection />} />
       <Route path="/nursing" element={<NursingPortalSelection />} />
+      <Route path="/allied-health" element={<AlliedHealthPortalSelection />} />
       
       {/* Medical College Portal Routes */}
-      <Route path="/medical" element={<DashboardLayout />}>
+      <Route path="/medical/*" element={<DashboardLayout />}>
+
+        {/* Director Portal - Medical Specific */}
+        <Route path="director" element={<MedicalDirectorDashboard />} />
+        <Route path="director/staff" element={<MedicalFacultyManagement />} />
+        <Route path="director/students" element={<MedicalStudentRecords />} />
+        <Route path="director/colleges" element={<MedicalDepartments />} />
+        <Route path="director/analytics" element={<Analytics />} />
+        <Route path="director/reports" element={<Reports />} />
 
         {/* Principal Portal - Medical Specific */}
         <Route path="principal" element={<MedicalPrincipalDashboard />} />
@@ -281,6 +293,7 @@ function App() {
 
         {/* Teacher Portal - Medical Specific */}
         <Route path="teacher" element={<MedicalTeacherDashboard />} />
+        <Route path="teacher/lms" element={<MedicalLMS />} />
         <Route path="teacher/logbook-approval" element={<LogbookApproval />} />
         <Route path="teacher/attendance" element={<MedicalAttendancePage />} />
         <Route path="teacher/marks" element={<MedicalMarksEntry />} />
@@ -289,6 +302,7 @@ function App() {
 
         {/* Medical Student Portal - CBME */}
         <Route path="student" element={<MedicalStudentDashboard />} />
+        <Route path="student/lms" element={<MedicalStudentLMS />} />
         <Route path="student/competencies" element={<CompetencyBrowser />} />
         <Route path="student/logbook" element={<ClinicalLogbook />} />
         <Route path="student/assessments" element={<AssessmentResults />} />
@@ -310,7 +324,7 @@ function App() {
       </Route>
 
       {/* Engineering College Portal Routes */}
-      <Route path="/engineering" element={<DashboardLayout />}>
+      <Route path="/engineering/*" element={<DashboardLayout />}>
         {/* Principal Portal - Engineering Specific */}
         <Route path="principal" element={<EngineeringPrincipalDashboard />} />
         <Route path="principal/academic" element={<EngineeringAcademicManagement />} />
@@ -347,7 +361,7 @@ function App() {
       </Route>
 
       {/* Dental College Portal Routes */}
-      <Route path="/dental" element={<DashboardLayout />}>
+      <Route path="/dental/*" element={<DashboardLayout />}>
         {/* Principal Portal - Dental Specific */}
         <Route path="principal" element={<DentalPrincipalDashboard />} />
         <Route path="principal/academic" element={<DentalAcademicManagement />} />
@@ -384,7 +398,7 @@ function App() {
       </Route>
 
       {/* Arts & Science College Portal Routes */}
-      <Route path="/arts-science" element={<DashboardLayout />}>
+      <Route path="/arts-science/*" element={<DashboardLayout />}>
         {/* Principal Portal - Arts & Science Specific */}
         <Route path="principal" element={<ArtsSciencePrincipalDashboard />} />
         <Route path="principal/academic" element={<ArtsScienceAcademicManagement />} />
@@ -421,7 +435,7 @@ function App() {
       </Route>
 
       {/* Nursing College Portal Routes */}
-      <Route path="/nursing" element={<DashboardLayout />}>
+      <Route path="/nursing/*" element={<DashboardLayout />}>
         {/* Principal Portal - Nursing Specific */}
         <Route path="principal" element={<NursingPrincipalDashboard />} />
         <Route path="principal/academic" element={<NursingAcademicManagement />} />
@@ -458,8 +472,7 @@ function App() {
       </Route>
 
       {/* Allied Health College Portal Routes */}
-      <Route path="/allied-health" element={<AlliedHealthPortalSelection />} />
-      <Route path="/allied-health" element={<DashboardLayout />}>
+      <Route path="/allied-health/*" element={<DashboardLayout />}>
         {/* Principal Portal - Allied Health Specific */}
         <Route path="principal" element={<AlliedHealthPrincipalDashboard />} />
         <Route path="principal/academic" element={<AlliedHealthAcademicManagement />} />

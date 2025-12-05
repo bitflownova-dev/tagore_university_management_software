@@ -7,8 +7,9 @@ import {
   Card,
   CardContent,
   CardActionArea,
-  Paper,
   IconButton,
+  Chip,
+  alpha,
 } from '@mui/material';
 import {
   BusinessCenter,
@@ -19,6 +20,7 @@ import {
   Engineering,
   AccountBalance,
   ArrowBack,
+  ArrowForwardIos,
 } from '@mui/icons-material';
 
 interface Portal {
@@ -34,56 +36,56 @@ const portals: Portal[] = [
   {
     id: 'director',
     title: 'Director Portal',
-    icon: <BusinessCenter sx={{ fontSize: 60 }} />,
-    color: '#0D47A1',
+    icon: <BusinessCenter sx={{ fontSize: 48 }} />,
+    color: '#0E7490',
     description: 'Manage institution, staff & departments',
     path: '/dental/director',
   },
   {
     id: 'principal',
     title: 'Principal Portal',
-    icon: <PrincipalIcon sx={{ fontSize: 60 }} />,
-    color: '#1565C0',
+    icon: <PrincipalIcon sx={{ fontSize: 48 }} />,
+    color: '#0891B2',
     description: 'Academic management & clinical operations',
     path: '/dental/principal',
   },
   {
     id: 'teacher',
     title: 'Faculty Portal',
-    icon: <Person sx={{ fontSize: 60 }} />,
-    color: '#1976D2',
+    icon: <Person sx={{ fontSize: 48 }} />,
+    color: '#06B6D4',
     description: 'Clinical procedures, attendance & assessments',
     path: '/dental/teacher',
   },
   {
     id: 'student',
     title: 'Student Portal',
-    icon: <PersonOutline sx={{ fontSize: 60 }} />,
-    color: '#42A5F5',
+    icon: <PersonOutline sx={{ fontSize: 48 }} />,
+    color: '#22D3EE',
     description: 'Clinical procedures, logbook & examinations',
     path: '/dental/student',
   },
   {
     id: 'parent',
     title: 'Parent Portal',
-    icon: <FamilyRestroom sx={{ fontSize: 60 }} />,
-    color: '#64B5F6',
+    icon: <FamilyRestroom sx={{ fontSize: 48 }} />,
+    color: '#67E8F9',
     description: 'Monitor student progress & performance',
     path: '/dental/parent',
   },
   {
     id: 'hr',
     title: 'HR Portal',
-    icon: <Engineering sx={{ fontSize: 60 }} />,
-    color: '#388E3C',
+    icon: <Engineering sx={{ fontSize: 48 }} />,
+    color: '#059669',
     description: 'Employee management & hospital staff',
     path: '/dental/hr',
   },
   {
     id: 'accountant',
     title: 'Accounts Portal',
-    icon: <AccountBalance sx={{ fontSize: 60 }} />,
-    color: '#FFA726',
+    icon: <AccountBalance sx={{ fontSize: 48 }} />,
+    color: '#F59E0B',
     description: 'Fee collection & financial management',
     path: '/dental/accountant',
   },
@@ -96,104 +98,238 @@ export default function DentalPortalSelection() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0288D1 0%, #0277BD 100%)',
-        py: 8,
+        bgcolor: '#F8FBFD',
       }}
     >
-      <Container maxWidth="lg">
-        <IconButton
-          onClick={() => navigate('/')}
-          sx={{
-            mb: 3,
-            color: 'white',
-            bgcolor: 'rgba(255, 255, 255, 0.1)',
-            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.2)' },
-          }}
-        >
-          <ArrowBack />
-        </IconButton>
-
-        <Paper
-          elevation={0}
-          sx={{
-            p: 4,
-            mb: 6,
-            background: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(10px)',
-            borderRadius: 3,
-            textAlign: 'center',
-          }}
-        >
-          <Typography
-            variant="h3"
-            gutterBottom
+      {/* Header with gradient */}
+      <Box
+        sx={{
+          background: 'linear-gradient(135deg, #0E7490 0%, #0891B2 100%)',
+          pt: 4,
+          pb: 8,
+          position: 'relative',
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '100px',
+            background: '#F8FBFD',
+            borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
+          },
+        }}
+      >
+        <Container maxWidth="lg">
+          <IconButton
+            onClick={() => navigate('/')}
             sx={{
-              fontWeight: 700,
-              color: '#0288D1',
-              mb: 2,
+              color: 'white',
+              bgcolor: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(10px)',
+              mb: 4,
+              '&:hover': {
+                bgcolor: 'rgba(255, 255, 255, 0.25)',
+                transform: 'translateX(-4px)',
+              },
+              transition: 'all 0.3s ease',
             }}
           >
-            Tagore Dental College & Hospital
-          </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
-            BDS & MDS Programs
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Select your portal to access the system
-          </Typography>
-        </Paper>
+            <ArrowBack />
+          </IconButton>
 
-        <Grid container spacing={4}>
+          <Box sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <Chip
+              label="DCI Approved"
+              sx={{
+                bgcolor: 'rgba(255,255,255,0.2)',
+                color: 'white',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                fontWeight: 600,
+                mb: 3,
+              }}
+            />
+            
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{
+                fontWeight: 800,
+                color: 'white',
+                letterSpacing: '-0.02em',
+                mb: 2,
+                textShadow: '0 2px 20px rgba(0,0,0,0.1)',
+              }}
+            >
+              Tagore Dental College & Hospital
+            </Typography>
+            
+            <Typography
+              variant="h6"
+              sx={{
+                color: 'rgba(255,255,255,0.95)',
+                fontWeight: 400,
+                mb: 1,
+              }}
+            >
+              BDS & MDS Programs
+            </Typography>
+            
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'rgba(255,255,255,0.85)',
+                maxWidth: 600,
+                mx: 'auto',
+              }}
+            >
+              Select your portal to access the system
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Portal Cards */}
+      <Container maxWidth="lg" sx={{ mt: -4, pb: 8, position: 'relative', zIndex: 2 }}>
+        <Grid container spacing={3}>
           {portals.map((portal) => (
-            <Grid item xs={12} sm={6} md={4} key={portal.id}>
+            <Grid item xs={12} sm={6} lg={4} key={portal.id}>
               <Card
+                elevation={0}
                 sx={{
                   height: '100%',
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.3s ease',
+                  borderRadius: 4,
+                  border: '1px solid',
+                  borderColor: 'rgba(0,0,0,0.08)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: 'white',
                   '&:hover': {
                     transform: 'translateY(-8px)',
-                    boxShadow: `0 12px 24px ${portal.color}40`,
+                    boxShadow: `0 20px 40px ${alpha(portal.color, 0.2)}`,
+                    borderColor: portal.color,
+                    '& .portal-icon-wrapper': {
+                      transform: 'scale(1.05)',
+                      bgcolor: portal.color,
+                      '& .MuiSvgIcon-root': {
+                        color: 'white',
+                      },
+                    },
+                    '& .arrow-icon': {
+                      transform: 'translateX(4px)',
+                      opacity: 1,
+                    },
                   },
                 }}
               >
                 <CardActionArea
                   onClick={() => navigate(portal.path)}
-                  sx={{ height: '100%', p: 3 }}
+                  sx={{
+                    height: '100%',
+                    p: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  }}
                 >
-                  <CardContent sx={{ textAlign: 'center', height: '100%' }}>
+                  <CardContent sx={{ width: '100%', p: 0 }}>
+                    {/* Icon */}
                     <Box
+                      className="portal-icon-wrapper"
                       sx={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: '50%',
+                        width: 80,
+                        height: 80,
+                        borderRadius: 3,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        bgcolor: `${portal.color}20`,
-                        color: portal.color,
-                        margin: '0 auto 20px',
+                        bgcolor: alpha(portal.color, 0.1),
+                        mb: 3,
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        border: '2px solid',
+                        borderColor: alpha(portal.color, 0.2),
+                        '& .MuiSvgIcon-root': {
+                          color: portal.color,
+                          transition: 'color 0.4s ease',
+                        },
                       }}
                     >
                       {portal.icon}
                     </Box>
+
+                    {/* Content */}
                     <Typography
-                      variant="h5"
-                      gutterBottom
-                      sx={{ fontWeight: 600, color: portal.color }}
+                      variant="h6"
+                      sx={{
+                        fontWeight: 700,
+                        color: '#1A202C',
+                        mb: 1,
+                        lineHeight: 1.3,
+                      }}
                     >
                       {portal.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: '#64748B',
+                        lineHeight: 1.6,
+                        mb: 3,
+                      }}
+                    >
                       {portal.description}
                     </Typography>
+
+                    {/* Action */}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        color: portal.color,
+                        fontWeight: 600,
+                        fontSize: '0.875rem',
+                      }}
+                    >
+                      <span>Access Portal</span>
+                      <ArrowForwardIos
+                        className="arrow-icon"
+                        sx={{
+                          fontSize: 12,
+                          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                          opacity: 0.7,
+                        }}
+                      />
+                    </Box>
                   </CardContent>
                 </CardActionArea>
               </Card>
             </Grid>
           ))}
         </Grid>
+
+        {/* Support Section */}
+        <Box
+          sx={{
+            mt: 6,
+            p: 4,
+            bgcolor: 'white',
+            borderRadius: 4,
+            border: '1px solid rgba(0,0,0,0.08)',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="body2" sx={{ color: '#64748B', mb: 0.5 }}>
+            Need help? Contact support at{' '}
+            <Box component="span" sx={{ color: '#0891B2', fontWeight: 600 }}>
+              support@tagoredental.edu.in
+            </Box>
+          </Typography>
+          <Typography variant="caption" sx={{ color: '#94A3B8' }}>
+            Available 24/7 for technical assistance
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );
